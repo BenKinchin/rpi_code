@@ -47,11 +47,11 @@ def morse(input_letter, letters_list=letters_list):
 
 def turn_off():
 	GPIO.output(ledPin, GPIO.LOW)     # led off
-	GPIO.cleanup()                     # Release resource
+	GPIO.cleanup()                    # Release resource
 
 
 
-if __name__ == '__main__':     # Program start from here
+if __name__ == '__main__':     # Program starts from here
 	setup()
 	try:
 		message_time()
