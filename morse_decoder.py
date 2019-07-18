@@ -31,7 +31,7 @@ def setup():
 	"""Sets up GPIO"""
 	GPIO.setmode(GPIO.BOARD)
 	GPIO.setup(ledPin,GPIO.OUT)
-	GPIO.output(ledPin,GPIO.HIGH)
+	GPIO.output(ledPin,GPIO.LOW)
 
 
 
@@ -43,6 +43,7 @@ def loop():
 	initial_v = value
 	time.sleep(1.5)
 	print("READY...")
+	GPIO.output(ledPin,GPIO.HIGH)
 	started = False    #variable checks whether message has started
 	morse_message = '' #message decoded into morse
 	final_message = '' #message decoded into regular letters
