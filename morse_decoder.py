@@ -11,7 +11,6 @@ dot = 0.4
 letters_list = '?'.join("abcdefghijklmnopqrstuvwxyz").split("?") #lists of alphabet and morse
 morse_list = ('01', '1000', '1010', '100', '0', '0010', '110', '0000', '00', '0111', '101', '0100', '11', '10', '111', '0110', '1101', '010', '000', '1', '001', '0001', '011', '1001', '1011', '1100')
 
-
 def morse_to_letters(morse, morse_list=morse_list):
 	"""takes morse code as input and outputs regular letters"""
 	if morse== '/':
@@ -47,12 +46,14 @@ def loop():
 	started = False    #variable checks whether message has started
 	morse_message = '' #message decoded into morse
 	final_message = '' #message decoded into regular letters
+	u_t = 0.98
+	l_t = 0.8
 
 	while True:
 		value = analogRead(0)	#Continuously reads Voltage from LDR
 
 
-		if value > initial_v * 0.95 and started == True : #Checks if light has been turned off
+		if value > initial_v * u_t and started == True : #Checks if light has been turned off
 			start =time.time()		#starts timer
 			while True:
 				value = analogRead(0)
@@ -63,7 +64,7 @@ def loop():
 						final_message += morse_to_letters(element)
 					print(final_message)
 					turn_off()
-				if value < initial_v * 0.95 :    #checks for voltage increase
+				if value < initial_v * l_t :    #checks for voltage increase
 					time_of_pause = time.time() - start
 					#decides if pause is new letter, space, or accidental based on length
 					#if pause is long then the message prints
@@ -79,13 +80,13 @@ def loop():
 				
 
 
-		if value < initial_v * 0.9 :  #Checks for voltage dip (caused by LED shining)
+		if value < initial_v * l_t :  #Checks for voltage dip (caused by LED shining)
 			started = True			  #Message has started
 			start =time.time()		  #Starts timer
 
 			while True:
 				value = analogRead(0)
-				if value > initial_v * 0.95 :
+				if value > initial_v * u_t :
 					time_of_beep = time.time() - start	#times length of beep
 					break
 
