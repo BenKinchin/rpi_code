@@ -1,21 +1,3 @@
-
-
-Skip to content
-Using Gmail with screen readers
-Enable desktop notifications for Gmail.
-   OK  No thanks
-
-1 of 1,418
-RPIWorking
-
-ben kinchin
-Attachments
-11:01 AM (0 minutes ago)
-to me
-
-
-Attachments area
-
 import RPi.GPIO as GPIO
 import smbus
 import time
@@ -130,6 +112,3 @@ if __name__ == '__main__': #Program starts here
 		loop()
 	except KeyboardInterrupt:
 		turn_off()
-
-morse_decoder.py
-Displaying morse_decoder.py.
