@@ -1,6 +1,25 @@
+
+
+Skip to content
+Using Gmail with screen readers
+Enable desktop notifications for Gmail.
+   OK  No thanks
+
+1 of 1,418
+RPIWorking
+
+ben kinchin
+Attachments
+11:01 AM (0 minutes ago)
+to me
+
+
+Attachments area
+
 import RPi.GPIO as GPIO
 import smbus
 import time
+import sys
 
 address = 0x48					#set initial variables
 bus=smbus.SMBus(1)
@@ -19,8 +38,6 @@ def morse_to_letters(morse, morse_list=morse_list):
 		if morse == char:
 			return letters_list[morse_list.index(char)]
 	return '?'
-
-
 
 
 def analogRead(chn):
@@ -57,29 +74,27 @@ def loop():
 			start =time.time()		#starts timer
 			while True:
 				value = analogRead(0)
+				if time.time() - start > dot*10:
+					print(morse_message)
+					message_to_decode = morse_message.split(" ")
+					for element in message_to_decode:
+						final_message += morse_to_letters(element)
+					print(final_message)
+					turn_off()
 				if value < initial_v * 0.95 :    #checks for voltage increase
 					time_of_pause = time.time() - start
-
 					#decides if pause is new letter, space, or accidental based on length
 					#if pause is long then the message prints
 					if time_of_pause > 0.1:
-						if time_of_pause > dot*0.5 and time_of_pause < dot*1.5:
-							None
-						elif time_of_pause > dot*1.5 and time_of_pause < dot*3.5:
+						if time_of_pause > dot*1.5 and time_of_pause < dot*3.5:
 							morse_message += ' '
 						elif time_of_pause > dot*6 and time_of_pause < dot*9:
 							morse_message += ' / '
-						elif time_of_pause > dot*10:
-							print(morse_message)
-							message_to_decode = morse_message.split(" ")
-							for element in message_to_decode:
-								final_message += morse_to_letters(element)
-							print(final_message)
-							num = 1/0 #ends program
+						
 						else:
 							None
 					break
-
+				
 
 
 		if value < initial_v * 0.9 :  #Checks for voltage dip (caused by LED shining)
@@ -106,7 +121,8 @@ def turn_off():
 	"""Closes bus and cleans GPIO data"""
 	bus.close()
 	GPIO.cleanup()
-
+	sys.exit()
+	
 if __name__ == '__main__': #Program starts here
 	print ('Program is starting ... ')
 	setup()
@@ -114,5 +130,6 @@ if __name__ == '__main__': #Program starts here
 		loop()
 	except KeyboardInterrupt:
 		turn_off()
-	except ZeroDivisionError:
-		turn_off()
+
+morse_decoder.py
+Displaying morse_decoder.py.
