@@ -57,7 +57,7 @@ def loop():
 			start =time.time()		#starts timer
 			while True:
 				value = analogRead(0)
-				if time.time() - start > dot*10:
+				if time.time() - start > dot*15:
 					print(morse_message)
 					message_to_decode = morse_message.split(" ")
 					for element in message_to_decode:
@@ -71,7 +71,7 @@ def loop():
 					if time_of_pause > 0.1:
 						if time_of_pause > dot*1.5 and time_of_pause < dot*3.5:
 							morse_message += ' '
-						elif time_of_pause > dot*6 and time_of_pause < dot*9:
+						elif time_of_pause > dot*6 and time_of_pause < dot*12:
 							morse_message += ' / '
 						
 						else:
