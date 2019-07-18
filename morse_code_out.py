@@ -31,7 +31,7 @@ def message_time():
 				GPIO.output(ledPin, GPIO.LOW)
 				time.sleep(dot)
 			else:
-				time.sleep(7*dot)
+				time.sleep(3*dot)
 		time.sleep(3*dot)
 	print(morse_message)	
 	turn_off() 
