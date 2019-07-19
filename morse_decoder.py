@@ -38,10 +38,12 @@ def setup():
 def loop():
 	"""Main progam loop"""
 	#Initialises sensor value
-	time.sleep(0.5)
-	value = analogRead(0)
-	initial_v = value
-	time.sleep(1.5)
+	initial_vs = []
+	for i in range(0,25):
+		value = analogRead(0)
+		initial_vs.append(value)
+		time.sleep(0.08)
+	initial_v = sum(initial_vs) / 25
 	print("READY...")
 	GPIO.output(ledPin,GPIO.HIGH)
 	started = False    #variable checks whether message has started
