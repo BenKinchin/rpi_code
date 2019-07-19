@@ -11,7 +11,7 @@ dot = 0.4
 letters_list = '?'.join("abcdefghijklmnopqrstuvwxyz").split("?") #lists of alphabet and morse
 morse_list = ('01', '1000', '1010', '100', '0', '0010', '110', '0000', '00', '0111', '101', '0100', '11', '10', '111', '0110', '1101', '010', '000', '1', '001', '0001', '011', '1001', '1011', '1100')
 
-def morse_to_letters(morse, morse_list=morse_list):
+def morse_to_letters(morse):
 	"""takes morse code as input and outputs regular letters"""
 	if morse== '/':
 		return ' '
@@ -39,17 +39,17 @@ def loop():
 	"""Main progam loop"""
 	#Initialises sensor value
 	initial_vs = []
-	for i in range(0,25):
+	for i in range(0,25):  #reads sensor value over two second and takes average
 		value = analogRead(0)
 		initial_vs.append(value)
 		time.sleep(0.08)
 	initial_v = sum(initial_vs) / 25
 	print("READY...")
-	GPIO.output(ledPin,GPIO.HIGH)
+	GPIO.output(ledPin,GPIO.HIGH) #turns on LED when ready
 	started = False    #variable checks whether message has started
 	morse_message = '' #message decoded into morse
 	final_message = '' #message decoded into regular letters
-	u_t = 0.98
+	u_t = 0.98	   #upper and lower bounds of the voltage, change these for different light settings
 	l_t = 0.8
 
 	while True:
@@ -60,7 +60,7 @@ def loop():
 			start =time.time()		#starts timer
 			while True:
 				value = analogRead(0)
-				if time.time() - start > dot*15:
+				if time.time() - start > dot*15:   #prints message and end program if no data recieved
 					print(morse_message)
 					message_to_decode = morse_message.split(" ")
 					for element in message_to_decode:
@@ -79,7 +79,7 @@ def loop():
 						
 						else:
 							None
-					break
+						break
 				
 
 
