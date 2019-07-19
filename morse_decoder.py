@@ -71,7 +71,7 @@ def loop():
 					time_of_pause = time.time() - start
 					#decides if pause is new letter, space, or accidental based on length
 					#if pause is long then the message prints
-					if time_of_pause > 0.1:
+					if time_of_pause > dot * 0.5:
 						if time_of_pause > dot*1.5 and time_of_pause < dot*3.5:
 							morse_message += ' '
 						elif time_of_pause > dot*6 and time_of_pause < dot*12:
